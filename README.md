@@ -149,7 +149,9 @@ Must use NetBeans + Tomcat for evaluation
 
 Ensure Maven dependencies load before running
 
+### Video demo link: https://drive.google.com/file/d/1X3YlXp_ycXb4VfiD0_pCF0CS_I7z_7VD/view?usp=sharing
 
+(Please be kind enough to use the quality as 720p or 1080p if it is not clear enough)
 
 # Questions and Answers
 ## PART 1
