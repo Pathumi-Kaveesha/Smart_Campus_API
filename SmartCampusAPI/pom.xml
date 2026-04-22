@@ -1,6 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -19,7 +20,7 @@
 
     <dependencies>
 
-        <!-- Java EE 8 API (provided by Tomcat runtime) -->
+        <!-- Java EE API (provided by Tomcat) -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -27,7 +28,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- JAX-RS IMPLEMENTATION -->
+        <!-- JAX-RS (Jersey implementation) -->
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-server</artifactId>
@@ -37,6 +38,13 @@
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
             <artifactId>jersey-container-servlet</artifactId>
+            <version>2.35</version>
+        </dependency>
+
+        <!-- Dependency Injection (FIXES your InjectionManagerFactory error) -->
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
             <version>2.35</version>
         </dependency>
 
@@ -63,7 +71,7 @@
                 </configuration>
             </plugin>
 
-            <!-- WAR plugin for Tomcat deployment -->
+            <!-- WAR for Tomcat -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
