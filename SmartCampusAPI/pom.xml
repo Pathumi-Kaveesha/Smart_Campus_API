@@ -20,7 +20,6 @@
 
     <dependencies>
 
-        <!-- Java EE API (provided by Tomcat) -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
@@ -28,7 +27,6 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- JAX-RS (Jersey implementation) -->
         <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-server</artifactId>
@@ -41,14 +39,12 @@
             <version>2.35</version>
         </dependency>
 
-        <!-- Dependency Injection (FIXES your InjectionManagerFactory error) -->
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
             <version>2.35</version>
         </dependency>
 
-        <!-- JSON support -->
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>
@@ -60,7 +56,6 @@
     <build>
         <plugins>
 
-            <!-- Compiler -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -71,7 +66,6 @@
                 </configuration>
             </plugin>
 
-            <!-- WAR for Tomcat -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>

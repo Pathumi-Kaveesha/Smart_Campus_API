@@ -115,6 +115,8 @@ public class SensorResource {
             throw new LinkedResourceNotFoundException("Sensor not found: " + id);
         }
         
+        //remove sensor readings for that sensor
+        SensorReadingResource.readings.remove(id);
         //remove sensor reference from its room
         Room room = RoomResource.rooms.get(sensor.getRoomId());
         if(room != null && room.getSensorIds() != null){

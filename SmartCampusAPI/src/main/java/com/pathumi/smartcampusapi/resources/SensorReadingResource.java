@@ -23,7 +23,6 @@ import com.pathumi.smartcampusapi.models.SensorReading;
 //exceptions
 import com.pathumi.smartcampusapi.exceptions.LinkedResourceNotFoundException;
 import com.pathumi.smartcampusapi.exceptions.SensorUnavailableException;
-import java.time.LocalDateTime;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
