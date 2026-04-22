@@ -116,13 +116,13 @@ GET /api/v1/
 
 curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/rooms \
 -H "Content-Type: application/json" \
--d '{"id":"R1","name":"Lecture Hall"}'
+-d '{"id":"R1","name":"Lecture Hall", "capacity": 100}'
 
 ### Create Sensor
 
 curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/sensors \
 -H "Content-Type: application/json" \
--d '{"id":"S1","type":"temperature","roomId":"R1","status":"ACTIVE"}'
+-d '{"id":"S1","type":"temperature","roomId":"R1","status":"ACTIVE", "currentValue": 25.0,}'
 
 ### Add Reading
 
@@ -135,7 +135,7 @@ curl -X POST http://localhost:8080/SmartCampusAPI/api/v1/sensors/S1/readings \
 curl -X GET http://localhost:8080/SmartCampusAPI/api/v1/sensors/S1/readings
 
 ### Update Sensor Status
-curl -X PUT http://localhost:8080/SmartCampusAPI/api/v1/sensors/S1/status \
+curl -X PATCH http://localhost:8080/SmartCampusAPI/api/v1/sensors/S1/status \
 -H "Content-Type: application/json" \
 -d '{"status":"MAINTENANCE"}'
 
