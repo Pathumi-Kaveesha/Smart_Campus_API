@@ -1,11 +1,8 @@
 package com.pathumi.smartcampusapi.models;
 
-import java.time.LocalDateTime;
-
-
 public class SensorReading {
     private String id;
-    private LocalDateTime timestamp; //stores time of reading
+    private long timestamp; //stores time of reading
     private double value; //actual sensor value
     
     public SensorReading() {} //required for frameworks like JSON mapping
@@ -13,7 +10,7 @@ public class SensorReading {
     public SensorReading(String id, double value) {
         this.id = id;
         this.value = value;
-        this.timestamp = LocalDateTime.now();
+        this.timestamp = System.currentTimeMillis();;
     }
 
     public String getId() {
@@ -24,11 +21,11 @@ public class SensorReading {
         this.id = id;
     }
 
-    public LocalDateTime getTimestamp() {
+    public long getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp) {
+    public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
     }
 

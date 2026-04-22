@@ -4,6 +4,7 @@ package com.pathumi.smartcampusapi.resources;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.PATCH;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
@@ -57,38 +58,6 @@ public class SensorResource {
             throw new LinkedResourceNotFoundException("No sensors found for type: " + type);
         }
         return Response.ok(filtered).build();
-    }
-    
-    //GET sensors by room ID
-    @GET
-    @Path("/{roomId}")
-    public Response getSensorsByRoom(@PathParam("roomId") String roomId) {
-
-        //validate room exists first
-        Room room = RoomResource.rooms.get(roomId);
-
-        if (room == null) {
-            throw new LinkedResourceNotFoundException("Room does not exist: " + roomId);
-        }
-
-        //collect sensors
-        List<Sensor> result = new ArrayList<>();
-
-        for (Sensor s : sensors.values()) {
-            if (roomId.equalsIgnoreCase(s.getRoomId())) {
-                result.add(s);
-            }
-        }
-
-        //if room exists but has no sensors
-        if (result.isEmpty()) {
-            Map<String, String> msg = new HashMap<>();
-            msg.put("message", "No sensors assigned to this room");
-
-            return Response.ok(msg).build();
-        }
-
-        return Response.ok(result).build();
     }
 
     
@@ -160,4 +129,45 @@ public class SensorResource {
         return Response.ok(response).build();
     }
     
+    
+    //update sensor status (active, maintenenace)
+    @PATCH
+    @Path("/{id}/status")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateSensorStatus(@PathParam("id") String id, Sensor sensorInput) {
+
+        Sensor sensor = sensors.get(id);
+
+        if (sensor == null) {
+            throw new LinkedResourceNotFoundException("Sensor not found: " + id);
+        }
+
+        if (sensorInput == null || sensorInput.getStatus() == null || sensorInput.getStatus().isEmpty()) {
+            Map<String, String> error = new HashMap<>();
+            error.put("message", "Status must be provided in request body");
+            return Response.status(Response.Status.BAD_REQUEST).entity(error).build();
+        }
+
+        String status = sensorInput.getStatus().toUpperCase();
+
+        if (!status.equals("ACTIVE") &&
+            !status.equals("MAINTENANCE") &&
+            !status.equals("OFFLINE")) {
+
+            Map<String, String> error = new HashMap<>();
+            error.put("message", "Invalid status. Allowed values: ACTIVE, MAINTENANCE, OFFLINE");
+            return Response.status(Response.Status.BAD_REQUEST).entity(error).build();
+        }
+
+        sensor.setStatus(status);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Sensor status updated successfully");
+        response.put("sensorId", id);
+        response.put("status", status);
+
+        return Response.ok(response).build();
+    }
+
 }

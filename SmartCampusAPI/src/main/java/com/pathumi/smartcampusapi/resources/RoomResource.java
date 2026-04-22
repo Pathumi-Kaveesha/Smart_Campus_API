@@ -24,6 +24,10 @@ import com.pathumi.smartcampusapi.models.Room;
 //custom exceptions
 import com.pathumi.smartcampusapi.exceptions.LinkedResourceNotFoundException;
 import com.pathumi.smartcampusapi.exceptions.RoomNotEmptyException;
+import com.pathumi.smartcampusapi.models.Sensor;
+import static com.pathumi.smartcampusapi.resources.SensorResource.sensors;
+import java.util.ArrayList;
+import java.util.List;
 
 @Path("/rooms")
 @Produces(MediaType.APPLICATION_JSON)
@@ -104,6 +108,38 @@ public class RoomResource {
         Map<String, String> error = new HashMap<>();
         error.put("message", "Room deleted successfully");
         return Response.status(Response.Status.OK).entity(error).build();
+    }
+    
+    //GET sensors by room ID
+    @GET
+    @Path("/{id}/sensors")
+    public Response getSensorsByRoom(@PathParam("id") String roomId) {
+
+        //validate room exists first
+        Room room = RoomResource.rooms.get(roomId);
+
+        if (room == null) {
+            throw new LinkedResourceNotFoundException("Room does not exist: " + roomId);
+        }
+
+        //collect sensors
+        List<Sensor> result = new ArrayList<>();
+
+        for (Sensor s : sensors.values()) {
+            if (roomId.equalsIgnoreCase(s.getRoomId())) {
+                result.add(s);
+            }
+        }
+
+        //if room exists but has no sensors
+        if (result.isEmpty()) {
+            Map<String, String> msg = new HashMap<>();
+            msg.put("message", "No sensors assigned to this room");
+
+            return Response.ok(msg).build();
+        }
+
+        return Response.ok(result).build();
     }
     
    

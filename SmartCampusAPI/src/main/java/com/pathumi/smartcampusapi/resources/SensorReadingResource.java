@@ -77,11 +77,7 @@ public class SensorReadingResource {
             return Response.status(Response.Status.BAD_REQUEST).entity(error).build();
         }
         
-        if(reading.getValue() <= 0){
-            error.put("error", "Invalid reading value");
-            return Response.status(Response.Status.BAD_REQUEST).entity(error).build();
-        }
-        
+       
         Sensor sensor = SensorResource.sensors.get(sensorId);
         
         //ensure sensor exists
@@ -94,7 +90,7 @@ public class SensorReadingResource {
             throw new SensorUnavailableException("Sensor is under maintenance. Cannot add readings");
         }
         
-        reading.setTimestamp(LocalDateTime.now());
+        reading.setTimestamp(System.currentTimeMillis());
         
         //initialize list if not present
         readings.putIfAbsent(sensorId, new ArrayList<>());
