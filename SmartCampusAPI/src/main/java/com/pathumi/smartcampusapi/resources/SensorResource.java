@@ -59,6 +59,39 @@ public class SensorResource {
         return Response.ok(filtered).build();
     }
     
+    //GET sensors by room ID
+    @GET
+    @Path("/{roomId}")
+    public Response getSensorsByRoom(@PathParam("roomId") String roomId) {
+
+        //validate room exists first
+        Room room = RoomResource.rooms.get(roomId);
+
+        if (room == null) {
+            throw new LinkedResourceNotFoundException("Room does not exist: " + roomId);
+        }
+
+        //collect sensors
+        List<Sensor> result = new ArrayList<>();
+
+        for (Sensor s : sensors.values()) {
+            if (roomId.equalsIgnoreCase(s.getRoomId())) {
+                result.add(s);
+            }
+        }
+
+        //if room exists but has no sensors
+        if (result.isEmpty()) {
+            Map<String, String> msg = new HashMap<>();
+            msg.put("message", "No sensors assigned to this room");
+
+            return Response.ok(msg).build();
+        }
+
+        return Response.ok(result).build();
+    }
+
+    
     //POST create sensor
     @POST
     public Response createSensor(Sensor sensor){
