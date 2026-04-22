@@ -23,6 +23,7 @@ import com.pathumi.smartcampusapi.models.SensorReading;
 //exceptions
 import com.pathumi.smartcampusapi.exceptions.LinkedResourceNotFoundException;
 import com.pathumi.smartcampusapi.exceptions.SensorUnavailableException;
+import java.time.LocalDateTime;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -93,7 +94,7 @@ public class SensorReadingResource {
             throw new SensorUnavailableException("Sensor is under maintenance. Cannot add readings");
         }
         
-        reading.setTimestamp(System.currentTimeMillis());
+        reading.setTimestamp(LocalDateTime.now());
         
         //initialize list if not present
         readings.putIfAbsent(sensorId, new ArrayList<>());

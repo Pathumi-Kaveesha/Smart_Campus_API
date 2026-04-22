@@ -74,7 +74,7 @@ public class SensorResource {
         
         //prevent duplicate sensors
         if(sensors.containsKey(sensor.getId())){
-            error.put("message", "Sensor already exists");
+            error.put("message", "Sensor with the same ID already exists");
             return Response.status(Response.Status.CONFLICT).entity(error).build();
         }
         

@@ -9,7 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 //utilities for building JSON response
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -19,14 +19,14 @@ public class DiscoveryResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String, Object> getApiInfo(){
-        Map<String, Object> response = new HashMap<>();
+        Map<String, Object> response = new LinkedHashMap<>();
         
         response.put("api", "Smart Campus API");
         response.put("version", "v1");
         response.put("contact", "admin@university.com");
         response.put("status", "running");
         
-        Map<String, Object> endpoints = new HashMap<>();
+        Map<String, Object> endpoints = new LinkedHashMap<>();
         
         endpoints.put("rooms", "/api/v1/rooms");
         endpoints.put("sensors", "/api/v1/sensors");
